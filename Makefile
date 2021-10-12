@@ -42,3 +42,6 @@ init-app:
 
 sh-app:
 	@docker-compose exec app /bin/sh
+
+sh-db:
+	@docker-compose exec db /bin/sh
