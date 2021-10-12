@@ -22,9 +22,9 @@ class DeploymentFactory extends Factory
     public function definition()
     {
         return [
-            'player_a_points'  => json_encode(['stub' => 1]),
-            'player_b_points'  => json_encode(['stub' => 1]),
-            'distances_points' => json_encode(['stub' => 1])
+            'player_a_points' => json_encode(['stub' => 1]),
+            'player_b_points' => json_encode(['stub' => 1]),
+            'distance_points' => json_encode(['stub' => 1])
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 /**
  * @property int      $id
@@ -33,19 +33,19 @@ class Mission extends Model
 
     protected $table = 'mission';
 
-    public function deployment(): HasOne
+    public function deployment(): BelongsTo
     {
-        return $this->hasOne(Deployment::class, 'deployment_id', 'id');
+        return $this->belongsTo(Deployment::class, 'deployment_id', 'id');
     }
 
-    public function twist(): HasOne
+    public function twist(): BelongsTo
     {
-        return $this->hasOne(Twist::class, 'twist_id', 'id');
+        return $this->belongsTo(Twist::class, 'twist_id', 'id');
     }
 
-    public function battlefield(): HasOne
+    public function battlefield(): BelongsTo
     {
-        return $this->hasOne(Battlefield::class, 'battlefield_id', 'id');
+        return $this->belongsTo(Battlefield::class, 'battlefield_id', 'id');
     }
 
     public function objectives(): BelongsToMany

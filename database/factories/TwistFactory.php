@@ -26,7 +26,7 @@ class TwistFactory extends Factory
         return [
             'title'       => $faker->title(),
             'description' => $faker->text(),
-            'rules_text'  => $faker->text()
+            'rules'       => $faker->text()
         ];
     }
 }
