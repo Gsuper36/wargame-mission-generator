@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Controller;
 use App\QueryModels\Eloquent\Queries\Mission\MissionFindQuery;
 use App\QueryModels\Eloquent\Queries\Mission\MissionReadQuery;
-use App\QueryModels\Eloquent\Resources\Mission\MissionJsonResource;
+use App\QueryModels\Eloquent\Resources\Mission\Client\MissionJsonResource;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
