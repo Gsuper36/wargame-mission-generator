@@ -18,7 +18,7 @@ final class MissionFindQuery extends FindQuery
     {
         return [
             'title' => function (Builder $query, $title) {
-                $query->whereRaw('title ilike ?', ["'{$title}'"]);
+                $query->whereRaw('title like ?', ["'%{$title}%'"]);
             },
             'battlefield_id' => function (Builder $query, $id) {
                 $query->where('battlefield_id', $id);
