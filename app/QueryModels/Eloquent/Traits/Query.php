@@ -9,17 +9,18 @@ use Illuminate\Support\Facades\Validator;
 
 trait Query
 {
-    protected string  $model;
-    protected ?string $jsonResource;
-    protected array   $rules;
-    protected array   $filters;
+    protected string   $model;
+    protected ?string  $jsonResource;
+    protected ?Builder $builder;
+    protected array    $rules   = [];
+    protected array    $filters = [];
     
     private array $requestData;
 
     /**
      * @return array
      */
-    protected function rules(): array
+    protected function rules(): array // а нужно ли это вообще? @todo вынести в FormRequest и заполнять через контроллер
     {
         return $this->rules;
     }
@@ -30,6 +31,25 @@ trait Query
     protected function filters(): array
     {
         return $this->filters;
+    }
+
+    /**
+     * @param array $filters
+     * @return void
+     */
+    public final function setFilters(array $filters): void
+    {
+        $this->filters = $filters;
+    }
+
+    /**
+     * @param string $key
+     * @param Callable $callable
+     * @return void
+     */
+    public final function addFilter(string $key, Callable $callable): void
+    {
+        $this->filters[$key] = $callable;
     }
 
     /**
@@ -45,7 +65,16 @@ trait Query
      */
     public function builder(): Builder
     {
-        return $this->model::query();
+        return $this->builder ?? $this->model::query();
+    }
+
+    /**
+     * @param Builder $builder
+     * @return void
+     */
+    public function setBuilder(Builder $builder): void
+    {
+        $this->builder = $builder;
     }
 
     /**
@@ -55,7 +84,7 @@ trait Query
      */
     protected function filtrate(Builder $query, array $data): void
     {
-        foreach (array_intersect($this->filters(), $data) as $key => $callable) {
+        foreach (array_intersect_key($this->filters(), $data) as $key => $callable) {
             $this->ensureIsCallable($callable);
 
             $query->when($data[$key], $callable);
@@ -68,7 +97,7 @@ trait Query
      * @param mixed $callable
      * @return void
      */
-    private function ensureIsCallbale($callable): void
+    protected final function ensureIsCallable($callable): void
     {
         if (! is_callable($callable)) {
             throw new Exception("Filter value must be callable");

@@ -18,7 +18,7 @@ abstract class FindQuery implements QueryModel
         $this->filtrate($query, $params);
 
         if ($this->jsonResource) {
-            return $this->jsonResource::make($query->get());
+            return $this->jsonResource::collection($query->paginate());
         }
 
         return $query->get();
