@@ -34,6 +34,7 @@ final class MissionFindQuery extends FindQuery
                 'deployment',
                 'twist',
                 'objectives'
-        ]);
+            ])
+            ->has('objectives');
     }
 }
