@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use App\Helpers\ApiResponseHelper;
 use App\Http\Controllers\Controller;
 use App\QueryModels\Eloquent\Queries\Mission\MissionFindQuery;
 use App\QueryModels\Eloquent\Queries\Mission\MissionReadQuery;
@@ -12,13 +13,17 @@ class MissionController extends Controller
 {
     public function find(Request $request)
     {
-        return (new MissionFindQuery($request, MissionJsonResource::class))
-            ->results();
+        return ApiResponseHelper::jsonResponse(
+            (new MissionFindQuery($request, MissionJsonResource::class))
+                ->results()
+        );
     }
 
     public function read(int $id)
     {
-        return (new MissionReadQuery(MissionJsonResource::class))
-            ->results($id);
+        return ApiResponseHelper::jsonResponse(
+            (new MissionReadQuery(MissionJsonResource::class))
+                ->results($id)
+        );
     }
 }

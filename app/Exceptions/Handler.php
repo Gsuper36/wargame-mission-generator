@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ApiResponseHelper;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -35,7 +38,19 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            Log::error($e->getMessage());
+        });
+
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($request->is('api/*')) {
+                return ApiResponseHelper::jsonErrorResponse($e->errors(), 'errors');
+            }
+        });
+
+        $this->renderable(function (Throwable $e, $request) {
+            if ($request->is('api/*')) {
+                return ApiResponseHelper::jsonErrorResponse($e->getMessage());
+            }
         });
     }
 }
