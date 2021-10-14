@@ -18,9 +18,10 @@ final class MissionJsonResource extends JsonResource
             'description' => $this->description,
             'rules'       => $this->rules,
             'twist'       => TwistJsonResource::make($this->whenLoaded('twist')),
-            'deployment'  => DeploymentJsonResource::make($this->deployment),
-            'battlefield' => BattlefieldJsonResource::make($this->battlefield),
-            'objectives'  => ObjectiveJsonResource::collection($this->objectives)
+            'deployment'  => DeploymentJsonResource::make($this->whenLoaded('deployment')),
+            'battlefield' => BattlefieldJsonResource::make($this->whenLoaded('battlefield')),
+            'objectives'  => ObjectiveJsonResource::collection($this->whenLoaded('objectives')),
+            'terrain'     => TerrainFeatureJsonResource::collection($this->whenLoaded('terrainFeatures'))
         ];
     }
 }

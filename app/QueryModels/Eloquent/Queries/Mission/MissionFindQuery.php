@@ -29,12 +29,6 @@ final class MissionFindQuery extends FindQuery
     public function builder(): Builder
     {
         return parent::builder()
-            ->with([
-                'battlefield',
-                'deployment',
-                'twist',
-                'objectives'
-            ])
             ->has('objectives');
     }
 }

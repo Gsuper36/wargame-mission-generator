@@ -6,6 +6,7 @@ use App\Models\Battlefield;
 use App\Models\Deployment;
 use App\Models\Mission;
 use App\Models\Objective;
+use App\Models\TerrainFeature;
 use App\Models\Twist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,32 +29,12 @@ class MissionFactory extends Factory
         $faker = $this->faker;
 
         return [
-            'title'       => $faker->title(),
-            'description' => $faker->text(),
-            'rules'       => $faker->text()
+            'title'          => $faker->title(),
+            'description'    => $faker->text(),
+            'rules'          => $faker->text(),
+            'twist_id'       => Twist::factory(),
+            'battlefield_id' => Battlefield::factory(),
+            'deployment_id'  => Deployment::factory(),
         ]; 
-    }
-
-    public function configure()
-    {
-        return $this->afterMaking(function (Mission $mission) {
-            $mission->twist()->associate(
-                Twist::factory()->create()
-            );
-
-            $mission->battlefield()->associate(
-                Battlefield::factory()->create()
-            );
-            
-            $mission->deployment()->associate(
-                Deployment::factory()->create()
-            );
-        })->afterCreating(function (Mission $mission) {
-            $mission->objectives()->saveMany(
-                Objective::factory()
-                    ->count(random_int(1, 3))
-                    ->make()
-            );
-        });
     }
 }

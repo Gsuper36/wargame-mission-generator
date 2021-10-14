@@ -17,7 +17,8 @@ final class MissionReadQuery extends ReadQuery
                 'battlefield',
                 'deployment',
                 'twist',
-                'objectives'
+                'objectives',
+                'terrainFeatures'
         ]);
     }
 }

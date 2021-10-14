@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -27,9 +28,9 @@ class TerrainFeature extends Model
 
     protected $table = 'terrain_feature';
 
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(TerrainCategory::class, 'category_id', 'id');
+        return $this->belongsTo(TerrainCategory::class, 'category_id', 'id');
     }
 
     public function terrainTraits(): BelongsToMany
