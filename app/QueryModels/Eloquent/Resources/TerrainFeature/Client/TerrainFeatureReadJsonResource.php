@@ -1,24 +1,21 @@
 <?php
 
-namespace App\QueryModels\Eloquent\Resources\Mission\Client;
+namespace App\QueryModels\Eloquent\Resources\TerrainFeature\Client;
 
-use App\Models\TerrainFeature;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-final class TerrainFeatureJsonResource extends JsonResource
+final class TerrainFeatureReadJsonResource extends JsonResource
 {
-    public $collects = TerrainFeature::class;
-
     public function toArray($request)
     {
         return [
             'id'          => $this->id,
             'title'       => $this->title,
-            'category'    => $this->category,
+            'category'    => TerrainCategoryJsonResource::make($this->whenLoaded('category')),
             'description' => $this->description,
             'rules'       => $this->rules,
             'rules_short' => $this->rules_short,
-            'traits'      => $this->terrainTraits->toArray() //@todo Добавить ресурсы
+            'traits'      => TerrainTraitJsonResource::collection($this->whenLoaded('terrainTraits'))
         ];
     }
 }
