@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\QueryModels\Eloquent\Queries\TerrainFeature\TerrainFeatureFindQuery;
 use App\QueryModels\Eloquent\Queries\TerrainFeature\TerrainFeatureReadQuery;
 use App\QueryModels\Eloquent\Resources\TerrainFeature\Client\TerrainFeatureCollectionResource;
-use App\QueryModels\Eloquent\Resources\TerrainFeature\Client\TerrainFeatureJsonResource;
 use App\QueryModels\Eloquent\Resources\TerrainFeature\Client\TerrainFeatureReadJsonResource;
 use Illuminate\Http\Request;
 
