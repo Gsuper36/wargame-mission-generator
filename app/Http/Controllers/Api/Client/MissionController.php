@@ -6,6 +6,7 @@ use App\Helpers\ApiResponseHelper;
 use App\Http\Controllers\Controller;
 use App\QueryModels\Eloquent\Queries\Mission\MissionFindQuery;
 use App\QueryModels\Eloquent\Queries\Mission\MissionReadQuery;
+use App\QueryModels\Eloquent\Resources\Mission\Client\MissionCollectionResource;
 use App\QueryModels\Eloquent\Resources\Mission\Client\MissionJsonResource;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class MissionController extends Controller
     public function find(Request $request)
     {
         return ApiResponseHelper::jsonResponse(
-            (new MissionFindQuery($request, MissionJsonResource::class))
+            (new MissionFindQuery($request, MissionCollectionResource::class))
                 ->results()
         );
     }
