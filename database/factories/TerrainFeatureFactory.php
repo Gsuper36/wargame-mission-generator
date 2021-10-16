@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\TerrainCategory;
 use App\Models\TerrainFeature;
+use App\Models\TerrainTrait;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TerrainFeatureFactory extends Factory
@@ -27,7 +29,8 @@ class TerrainFeatureFactory extends Factory
             'title'       => $faker->title(),
             'description' => $faker->text(),
             'rules'       => $faker->text(),
-            'rules_short' => $faker->text(50)
+            'rules_short' => $faker->text(50),
+            'category_id' => TerrainCategory::factory()
         ];
     }
 }
