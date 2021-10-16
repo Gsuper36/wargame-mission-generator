@@ -17,7 +17,7 @@ services:
         networks:
             - app-network
         volumes:
-            - ./:/var/www
+            - ./php:/var/www
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
 
     webserver:
@@ -31,7 +31,7 @@ services:
         networks:
             - app-network
         volumes:
-            - ./:/var/www
+            - ./php:/var/www
             - ./docker/nginx/conf.d:/etc/nginx/conf.d
 
     db:

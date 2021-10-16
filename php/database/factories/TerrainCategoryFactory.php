@@ -24,7 +24,7 @@ class TerrainCategoryFactory extends Factory
         $faker = $this->faker;
 
         return [
-            'tilte'       => $faker->title(),
+            'title'       => $faker->title(),
             'rules'       => $faker->text(),
             'rules_short' => $faker->text(50)
         ];

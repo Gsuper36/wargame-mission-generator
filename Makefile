@@ -45,3 +45,6 @@ sh-app:
 
 sh-db:
 	@docker-compose exec db /bin/sh
+
+sh-webserver:
+	@docker-compose exec webserver /bin/sh

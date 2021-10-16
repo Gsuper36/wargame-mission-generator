@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MissionSeeder::class);
         $this->call(ObjectiveSeeder::class);
         $this->call(TwistSeeder::class);
+        $this->call(TerrainFeatureSeeder::class);
     }
 }
