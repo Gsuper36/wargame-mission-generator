@@ -27,7 +27,6 @@ services:
         tty: true
         ports:
             - "${APP_PORT}:80"
-            - "444:443"
         networks:
             - app-network
         volumes:
@@ -36,7 +35,7 @@ services:
 
     db:
         build: 
-            context: ./docker/postgres
+            context: ./php/docker/postgres
             dockerfile: Dockerfile
             args: 
                 UID: ${UID}
