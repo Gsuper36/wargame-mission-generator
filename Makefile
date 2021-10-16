@@ -28,6 +28,7 @@ build:
 	docker-compose build
 	@mkdir -p ./docker/postgres/dbdata
 	@chown -R ${UID}:${GID} ./docker/postgres
+	@docker-compose run --rm go air init
 
 init-project:
 	@cp docker-compose.example.yml docker-compose.yml
@@ -48,3 +49,6 @@ sh-db:
 
 sh-webserver:
 	@docker-compose exec webserver /bin/sh
+
+sh-go:
+	@docker-compose exec go /bin/sh
