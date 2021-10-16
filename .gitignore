@@ -2,3 +2,5 @@ docker/postgres/dbdata/*
 docker-compose.yml
 .makeenv
 ./vscode
+go/.air.toml
+go/tmp/*

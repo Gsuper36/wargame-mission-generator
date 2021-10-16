@@ -32,6 +32,7 @@ services:
             - app-network
         volumes:
             - ./php:/var/www
+            - ./go:/opt/app
             - ./docker/nginx/conf.d:/etc/nginx/conf.d
 
     db:
@@ -55,6 +56,13 @@ services:
             - app-network
         volumes:
             - ./docker/postgres/dbdata:/var/lib/postgresql/data
+
+    go:
+        build: 
+            dockerfile: Dockerfile
+            context: ./go/docker
+        volumes:
+            - ./go:/opt/app 
 
 networks:
     app-network:
