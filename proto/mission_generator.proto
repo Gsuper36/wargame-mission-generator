@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mGenerator;
 
-option go_package = "github.com/linni/w40k/mission/generator";
+option go_package = "/proto";
 
 message GenerateMissionRequest {
     enum MissionFormat {
