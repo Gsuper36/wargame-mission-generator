@@ -4,3 +4,4 @@ docker-compose.yml
 ./vscode
 go/.air.toml
 go/tmp/*
+go/.env
