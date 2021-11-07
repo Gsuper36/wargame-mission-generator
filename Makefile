@@ -38,8 +38,8 @@ init-project:
 
 init-app:
 	@./composer install
-	@./php key:generate
-	@./php migrate --seed
+	@./artisan key:generate
+	@./artisan migrate --seed
 
 sh-app:
 	@docker-compose exec app /bin/sh
