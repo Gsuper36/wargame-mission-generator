@@ -41,6 +41,12 @@ init-app:
 	@./artisan key:generate
 	@./artisan migrate --seed
 
+php-proto:
+	@echo "Not implemented yet"
+
+go-proto:
+	@echo "Not implemented yet"
+
 sh-app:
 	@docker-compose exec app /bin/sh
 
