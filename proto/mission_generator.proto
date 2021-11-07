@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package mGenerator;
+
+option go_package = "github.com/linni/w40k/mission/generator";
+
+message GenerateMissionRequest {
+    enum MissionFormat {
+        COMBAT_PATROL = 0;
+        INCURSION = 1;
+    }
+
+    MissionFormat missionFormat = 1;
+}
+
+message Point {
+    float x = 1;
+    float y = 2;
+
+    repeated Point links = 3;
+}
+
+message Mission {
+    string title = 1;
+    string description = 2;
+    string rules = 3;
+
+    message Twist {
+        string title = 1;
+        string description = 2;
+        string rules = 3;
+    }
+
+    Twist twist = 4;
+
+    message Deployment {
+
+        repeated Point player_a_points = 1;
+        repeated Point player_b_points = 2;
+        repeated Point distance_points = 3;
+
+    }
+
+    Deployment deployment = 5;
+
+    message Battlefield {
+        string title = 1;
+        int32 width = 2;
+        int32 height = 3;
+        int32 power_level = 4;
+        int32 points = 5;
+    }
+
+    Battlefield battlefield = 6;
+
+    message Objective {
+        string title = 1;
+        string description = 2;
+        string rules_text = 3;
+        bool primary = 4;
+        
+        repeated Point objective_points = 5;
+    }
+
+    repeated Objective objectives = 7;
+
+    message Terrain {
+        string title = 1;
+
+        message Category {
+            string title = 1;
+            string rules = 2;
+            string rules_short = 3;
+        }
+
+        Category category = 2;
+
+        string description = 3;
+        string rules = 4;
+        string rules_short = 5;
+
+        message Trait {
+            string title = 1;
+            string rules = 2;
+            string rules_short = 3;
+        }
+
+        repeated Trait traits = 6;
+        Point point = 7;
+    }
+
+    repeated Terrain terrain = 8;
+}
+
+service MissionGenerator {
+    rpc Generate(GenerateMissionRequest) returns (Mission); 
+}
+
+
