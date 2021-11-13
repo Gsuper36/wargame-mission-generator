@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -14,7 +13,21 @@ import (
 func main() {
 	loadEnv()
 
-	databaseConnection, err := db.MakeConnection(
+	databaseConnection := databaseConnection()
+
+	server := server.NewMissionGeneratorServer(&databaseConnection)
+}
+
+func loadEnv() {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func databaseConnection() gorm.DB {
+	conn, err := db.MakeConnection(
 		db.ConnectionParams{
 			Username: os.Getenv("DB_USERNAME"),
 			Password: os.Getenv("DB_PASSWORD"),
@@ -29,13 +42,5 @@ func main() {
 		panic(err)
 	}
 
-	server := server.NewMissionGeneratorServer(databaseConnection)
-}
-
-func loadEnv() {
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		panic(err)
-	}
+	return *conn
 }
