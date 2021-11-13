@@ -4,15 +4,14 @@ import (
 	"os"
 	"fmt"
 	"github.com/joho/godotenv"
+	"github.com/linni/mission/generator/db"
 )
 
 // Здесь будем читать конфиг и запускать сервис
 func main() {
 	loadEnv()
 
-	serverPort := os.Getenv("GENERATOR_PORT")
-
-	fmt.Print(serverPort)
+	model := db.Mission{};
 }
 
 func loadEnv() {
