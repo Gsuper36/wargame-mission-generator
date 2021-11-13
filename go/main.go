@@ -6,6 +6,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/linni/mission/generator/db"
+	"github.com/linni/mission/generator/server"
 	"gorm.io/gorm"
 )
 
@@ -23,6 +24,12 @@ func main() {
 		},
 		gorm.Config{},
 	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	server := server.NewMissionGeneratorServer(databaseConnection)
 }
 
 func loadEnv() {
