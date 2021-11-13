@@ -1,11 +1,15 @@
 package main
 
 import (
+	"fmt"
+	"net"
 	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/linni/mission/generator/db"
 	"github.com/linni/mission/generator/server"
+	pb "github.com/linni/mission/generator/proto"
+	"google.golang.org/grpc"
 	"gorm.io/gorm"
 )
 
@@ -15,7 +19,17 @@ func main() {
 
 	databaseConnection := databaseConnection()
 
-	server := server.NewMissionGeneratorServer(&databaseConnection)
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%s", os.Getenv("GENERATOR_PORT")))
+
+	if err != nil {
+		panic(err)
+	}
+
+	var opts []grpc.ServerOption
+
+	grpcServer := grpc.NewServer(opts...)
+	pb.RegisterMissionGeneratorServer(grpcServer, server.NewMissionGeneratorServer(&databaseConnection))
+	grpcServer.Serve(lis)
 }
 
 func loadEnv() {

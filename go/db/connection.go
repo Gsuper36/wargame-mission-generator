@@ -19,7 +19,7 @@ func MakeConnection(params ConnectionParams, config gorm.Config) (*gorm.DB, erro
 	return gorm.Open(
 		postgres.Open(
 			fmt.Sprintf(
-				"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+				"user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
 				params.Username,
 				params.Password,
 				params.Host,

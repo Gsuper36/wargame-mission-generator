@@ -9,6 +9,7 @@ import (
 
 
 type MissionGeneratorServer struct {
+	pb.UnimplementedMissionGeneratorServer
 	dbConnection *gorm.DB
 }
 
