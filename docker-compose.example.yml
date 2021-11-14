@@ -58,6 +58,10 @@ services:
             - ./docker/postgres/dbdata:/var/lib/postgresql/data
 
     go:
+        networks:
+            - app-network
+        ports:
+            - "9011"
         build: 
             dockerfile: Dockerfile
             context: ./go/docker

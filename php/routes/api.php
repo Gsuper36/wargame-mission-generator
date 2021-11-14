@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('missions', 'App\Http\Controllers\Api\Client\MissionController@find');
 Route::get('missions/{id}', 'App\Http\Controllers\Api\Client\MissionController@read');
+Route::post('missions/generate', 'App\Http\Controllers\Api\Client\MissionController@generate');
 
 Route::get('terrain-features', 'App\Http\Controllers\Api\Client\TerrainFeatureController@find');
 Route::get('terrain-features/{id}', 'App\Http\Controllers\Api\Client\TerrainFeatureController@read');
