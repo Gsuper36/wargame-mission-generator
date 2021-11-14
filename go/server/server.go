@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"sync"
 
 	"github.com/linni/mission/generator/db"
@@ -28,12 +29,22 @@ func (s *MissionGeneratorServer) Generate(
 	ctx context.Context, 
 	request *pb.GenerateMissionRequest,
 ) (*pb.Mission, error) {
+
+	defer func ()  {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
 	mission := Mission{}
+	
 	go s.setTwist(&mission)
 	go s.setObjectives(&mission)
 	go s.setDeployment(&mission)
 	go s.setBattlefield(&mission)
+
 	s.syncGroup.Wait()
+
 	return &mission.Mission, nil
 }
 
