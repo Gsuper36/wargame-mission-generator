@@ -6,7 +6,6 @@ import (
 	"sync"
 
 	"github.com/linni/mission/generator/db"
-	"github.com/linni/mission/generator/proto"
 	pb "github.com/linni/mission/generator/proto"
 	"gorm.io/gorm"
 )
@@ -54,7 +53,7 @@ func (s *MissionGeneratorServer) setTwist(mission *Mission) {
 	
 	s.syncGroup.Add(1)
 
-	conn.First(&twist).Order("ORDER BY RANDOM")
+	conn.First(&twist).Order("RANDOM")
 	
 	mission.Lock()
 	mission.Mission.Twist = &pb.Mission_Twist{
@@ -69,13 +68,13 @@ func (s *MissionGeneratorServer) setTwist(mission *Mission) {
 
 func (s *MissionGeneratorServer) setObjectives(mission *Mission) {
 	var objectives []db.Objective
-	var protoObjectives []*proto.Mission_Objective
+	var protoObjectives []*pb.Mission_Objective
 	conn := s.dbConnection
 
 	s.syncGroup.Add(1)
-	conn.Limit(3).Find(&objectives).Order("ORDER BY RANDOM")
+	conn.Limit(3).Find(&objectives).Order("RANDOM")
 	for _, objective := range objectives {
-		protoObjectives = append(protoObjectives, &proto.Mission_Objective{
+		protoObjectives = append(protoObjectives, &pb.Mission_Objective{
 			Title: objective.Title,
 			Description: objective.Description,
 			RulesText: objective.RulesText,
@@ -94,9 +93,9 @@ func (s *MissionGeneratorServer) setDeployment(mission *Mission) {
 	var deployment db.Deployment
 
 	s.syncGroup.Add(1)
-	conn.First(&deployment).Order("ORDER BY RANDOM")
+	conn.First(&deployment).Order("RANDOM")
 	mission.Lock()
-	mission.Mission.Deployment = &proto.Mission_Deployment{
+	mission.Mission.Deployment = &pb.Mission_Deployment{
 		PlayerAPoints: nil,
 		PlayerBPoints: nil,
 		DistancePoints: nil,
@@ -112,7 +111,7 @@ func (s *MissionGeneratorServer) setBattlefield(mission *Mission) {
 	s.syncGroup.Add(1)
 	conn.First(&battlefield).Order("ORDER BY RANDOM")
 	mission.Lock()
-	mission.Mission.Battlefield = &proto.Mission_Battlefield{
+	mission.Mission.Battlefield = &pb.Mission_Battlefield{
 		Title: battlefield.Title,
 		Width: int32(battlefield.Width),
 		Height: int32(battlefield.Height),
